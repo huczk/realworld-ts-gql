@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  db:
+    image: "mysql:8"
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - ./.db:/var/lib/mysql
+    restart: unless-stopped
+    env_file:
+      - ./envdev/mysql.env
+
+  web:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    depends_on:
+      - db
+    links:
+      - db:mysql
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    env_file:
+      - ./envdev/mysql.env
+      - ./envdev/node.env
