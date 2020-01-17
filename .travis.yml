@@ -2,7 +2,8 @@ sudo: required
 
 services:
   - docker
-  - mysql
+  # - mysql
+  # -
 
 env:
   - MYSQL_ROOT_PASSWORD=
