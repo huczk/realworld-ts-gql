@@ -21,9 +21,10 @@ script:
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
   # - docker run huczk/realworld-ts-ql yarn test
   - docker-compose up -d
-  - docker-compose exec web bash yarn test
-  - docker build -t huczk/realworld-ts-ql ./server
-  - docker tag huczk/realworld-ts-ql:latest registry.heroku.com/$HEROKU_APP/web
+  - docker-compose exec web bash
+  - yarn test
+  - exit
+  - docker build -t huczk/realworld-ts-ql ./server  - docker tag huczk/realworld-ts-ql:latest registry.heroku.com/$HEROKU_APP/web
 
 deploy:
   provider: script
