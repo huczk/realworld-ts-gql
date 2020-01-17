@@ -8,6 +8,8 @@ env:
   - MYSQL_ROOT_PASSWORD=
 
 language: node_js
+node_js:
+  - 13
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
@@ -16,8 +18,10 @@ script:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
+  # - docker run huczk/realworld-ts-ql yarn test
+  - docker-compose up -d
+  - docker-compose exec web bash yarn test
   - docker build -t huczk/realworld-ts-ql ./server
-  - docker run huczk/realworld-ts-ql yarn test
   - docker tag huczk/realworld-ts-ql:latest registry.heroku.com/$HEROKU_APP/web
 
 deploy:

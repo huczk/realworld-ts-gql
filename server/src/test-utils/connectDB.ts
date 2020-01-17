@@ -4,9 +4,9 @@ export const connectTestDB = async (): Promise<Connection> =>
   createConnection({
     name: "development",
     type: "mysql",
-    host: "127.0.0.1",
-    username: "root",
-    password: "",
+    host: process.env.MYSQL_HOST,
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
     database: "test",
     dropSchema: true,
     synchronize: true,
