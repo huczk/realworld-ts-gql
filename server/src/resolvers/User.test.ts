@@ -39,6 +39,8 @@ describe("Register", () => {
       },
     });
 
+    console.log(response);
+
     expect(response).toMatchObject({
       data: {
         register: { username: fakeUser.username, email: fakeUser.email },
