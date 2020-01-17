@@ -2,14 +2,26 @@ sudo: required
 
 services:
   - docker
+  - mysql
+
+env:
+  - MYSQL_DATABASE=test
+  - MYSQL_USER=root
+  - MYSQL_HOST=127.0.0.1
+  - MYSQL_PASSWORD=
+  - MYSQL_ROOT_PASSWORD=
 
 language: node_js
+
+before_install:
+  - mysql -e 'CREATE DATABASE test;'
 
 script:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - echo "$HEROKU_API_KEY" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
   - docker build -t huczk/realworld-ts-ql ./server
+  - docker run huczk/realworld-ts-ql yarn test
   - docker tag huczk/realworld-ts-ql:latest registry.heroku.com/$HEROKU_APP/web
 
 deploy:
