@@ -14,7 +14,7 @@ env:
 language: node_js
 
 before_install:
-  - mysql -e 'CREATE DATABASE test;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
 
 script:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
