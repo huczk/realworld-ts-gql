@@ -1,11 +1,8 @@
 import { Connection, createConnection, getConnectionOptions } from "typeorm";
 
-export const connectDB = async (
-  dropSchema = false,
-  optionName = process.env.NODE_ENV || "development",
-): Promise<Connection> =>
+export const connectDB = async (ovverride: any = {}): Promise<Connection> =>
   createConnection({
-    ...(await getConnectionOptions(optionName)),
-    dropSchema,
+    ...(await getConnectionOptions("development")),
+    ...ovverride,
     name: "default",
   });

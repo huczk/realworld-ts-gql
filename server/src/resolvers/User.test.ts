@@ -8,7 +8,13 @@ import { Profile } from "../entity";
 let conn: Connection;
 
 beforeAll(async () => {
-  conn = await connectDB(true, "development");
+  conn = await connectDB({
+    dropSchema: true,
+    host: "127.0.0.1",
+    username: "realworld",
+    password: "realworld",
+    database: "realworld",
+  });
 });
 
 afterAll(async () => {
