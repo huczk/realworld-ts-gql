@@ -9,9 +9,11 @@ let conn: Connection;
 
 beforeAll(async () => {
   try {
+    console.log(process.env);
     conn = await connectTestDB();
+    console.log(conn);
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
   }
 });
 
