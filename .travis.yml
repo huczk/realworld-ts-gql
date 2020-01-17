@@ -2,11 +2,6 @@ sudo: required
 
 services:
   - docker
-  # - mysql
-  # -
-
-env:
-  - MYSQL_ROOT_PASSWORD=
 
 language: node_js
 node_js:

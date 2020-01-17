@@ -8,7 +8,7 @@ import { Profile } from "../entity";
 let conn: Connection;
 
 beforeAll(async () => {
-  conn = await connectDB(true);
+  conn = await connectDB(true, "development");
 });
 
 afterAll(async () => {
@@ -31,6 +31,8 @@ describe("Register", () => {
       password: "password",
       username: "User",
     };
+
+    console.log(Profile);
 
     const response = await gCall({
       source: registerMutation,

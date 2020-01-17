@@ -1,8 +1,11 @@
 import { Connection, createConnection, getConnectionOptions } from "typeorm";
 
-export const connectDB = async (dropSchema = false): Promise<Connection> =>
+export const connectDB = async (
+  dropSchema = false,
+  optionName = process.env.NODE_ENV || "development",
+): Promise<Connection> =>
   createConnection({
-    ...(await getConnectionOptions(process.env.NODE_ENV || "development")),
+    ...(await getConnectionOptions(optionName)),
     dropSchema,
     name: "default",
   });
