@@ -8,13 +8,7 @@ import { Profile } from "../entity";
 let conn: Connection;
 
 beforeAll(async () => {
-  try {
-    console.log(process.env);
-    conn = await connectTestDB();
-    console.log(conn);
-  } catch (e) {
-    console.log(e.message);
-  }
+  conn = await connectTestDB();
 });
 
 afterAll(async () => {
@@ -32,6 +26,7 @@ mutation register($input: RegisterInput!) {
 
 describe("Register", () => {
   it("create user", async () => {
+    console.log({ conn });
     const fakeUser = {
       email: "some@mail.com",
       password: "password",
