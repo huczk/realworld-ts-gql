@@ -8,7 +8,7 @@ export const connectTestDB = async (): Promise<Connection> =>
     username: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-    // dropSchema: true,
+    dropSchema: true,
     synchronize: true,
     logging: true,
     entities: ["src/entity/**/*.ts"],

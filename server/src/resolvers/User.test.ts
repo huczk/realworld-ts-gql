@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 
-import { connectTestDB } from "../test-utils/connectDB";
+import { connectDB } from "../connectDB";
 import { gCall } from "../test-utils/gCall";
 
 import { Profile } from "../entity";
@@ -8,7 +8,11 @@ import { Profile } from "../entity";
 let conn: Connection;
 
 beforeAll(async () => {
-  conn = await connectTestDB();
+  try {
+    conn = await connectDB();
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 afterAll(async () => {
@@ -26,7 +30,6 @@ mutation register($input: RegisterInput!) {
 
 describe("Register", () => {
   it("create user", async () => {
-    console.log({ conn });
     const fakeUser = {
       email: "some@mail.com",
       password: "password",
