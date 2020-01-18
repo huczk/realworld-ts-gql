@@ -7,9 +7,11 @@ import { Profile } from "../entity";
 let conn: Connection;
 
 beforeAll(async () => {
-  conn = await connectTestDB();
-
-  console.log({ conn });
+  try {
+    conn = await connectTestDB();
+  } catch (e) {
+    console.log({ e });
+  }
 });
 
 afterAll(async () => {
