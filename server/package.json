@@ -8,6 +8,8 @@
     "build": "tsc --build tsconfig.json",
     "start": "node dist/index.js",
     "prettier": "prettier --write \"src/**/*.{ts,js,json}\"",
+    "test": "jest",
+    "test:local": "cd tests && docker-compose up --force-recreate -d && cd ../ && sh tests/wait-for-sql.sh && yarn test",
     "schema": "ts-node src/buildSchema.ts"
   },
   "husky": {
@@ -19,6 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
+    "@types/jest": "^24.9.0",
     "@types/jsonwebtoken": "^8.3.6",
     "@types/mysql": "^2.15.8",
     "@types/node": "^13.1.7",
@@ -30,7 +33,9 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.0.10",
+    "jest": "^24.9.0",
     "prettier": "^1.19.1",
+    "ts-jest": "^24.3.0",
     "ts-node": "8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "3.7.4"
