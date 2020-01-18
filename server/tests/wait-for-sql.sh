@@ -1,4 +1,5 @@
 
+sleep 5
 until nc -z -v -w30 localhost 3306
 do
   echo "Waiting for database connection..."
