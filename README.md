@@ -26,6 +26,10 @@ Tips
 
 - You can change env variables inside `envdev` folder
 
+Tests
+
+- example test is located in `./server/src/resolvers/User.test.ts`
+
 # Getting started
 
 - Install [node](https://nodejs.org/en/) and [yarn](https://nodejs.org/en/).
