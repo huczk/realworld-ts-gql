@@ -1,20 +1,13 @@
 import { Connection } from "typeorm";
 
-import { connectDB } from "../connectDB";
-import { gCall } from "../../tests/gCall";
+import { connectTestDB, gCall } from "../../tests";
 
 import { Profile } from "../entity";
 
 let conn: Connection;
 
 beforeAll(async () => {
-  conn = await connectDB({
-    dropSchema: true,
-    host: "0.0.0.0",
-    username: "realworld",
-    password: "realworld",
-    database: "test",
-  });
+  conn = await connectTestDB();
 });
 
 afterAll(async () => {
@@ -38,7 +31,7 @@ describe("Register", () => {
       username: "User",
     };
 
-    console.log(Profile);
+    console.log({ conn, Profile });
 
     const response = await gCall({
       source: registerMutation,
