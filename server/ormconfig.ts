@@ -1,3 +1,5 @@
+import { Article, Comment, Favorite, Follower, Profile } from "./src/entity";
+
 module.exports = [
   {
     name: "development",
@@ -9,7 +11,7 @@ module.exports = [
     url: process.env.DATABASE_URL,
     synchronize: true,
     logging: true,
-    entities: ["src/entity/**/*.ts"],
+    entities: [Article, Profile, Favorite, Follower, Comment],
     migrations: ["src/migration/**/*.ts"],
     subscribers: ["src/subscriber/**/*.ts"],
     cli: {
