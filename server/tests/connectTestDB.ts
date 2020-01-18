@@ -1,7 +1,11 @@
-import { Connection, createConnection, getConnectionOptions } from "typeorm";
+import { Connection } from "typeorm";
+import { connectDB } from "../src/connectDB";
 
 export const connectTestDB = async (): Promise<Connection> =>
-  createConnection({
-    ...(await getConnectionOptions()),
-    name: "default",
+  connectDB("development", {
+    host: "localhost",
+    username: "user",
+    password: "pass",
+    database: "test",
+    dropSchema: true,
   });

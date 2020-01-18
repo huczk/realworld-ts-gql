@@ -7,7 +7,9 @@ language: node_js
 node_js:
   - 13
 
-cache: yarn
+cache:
+  directories:
+    - node_modules
 
 jobs:
   include:

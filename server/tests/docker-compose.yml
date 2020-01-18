@@ -8,9 +8,8 @@ services:
       - "3306:3306"
     expose:
       - "3306"
+    volumes:
+      - ./.db:/var/lib/mysql
     restart: unless-stopped
-    environment:
-      - MYSQL_DATABASE=test
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
+    env_file:
+      - ./mysql.env

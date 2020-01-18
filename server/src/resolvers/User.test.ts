@@ -8,11 +8,13 @@ let conn: Connection;
 
 beforeAll(async () => {
   conn = await connectTestDB();
+
+  console.log({ conn });
 });
 
-// afterAll(async () => {
-//   await conn?.close();
-// });
+afterAll(async () => {
+  await conn?.close();
+});
 
 const registerMutation = `
 mutation register($input: RegisterInput!) {
@@ -30,8 +32,6 @@ describe("Register", () => {
       password: "password",
       username: "User",
     };
-
-    console.log({ conn, Profile });
 
     const response = await gCall({
       source: registerMutation,
