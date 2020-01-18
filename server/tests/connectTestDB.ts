@@ -3,9 +3,9 @@ import { connectDB } from "../src/connectDB";
 
 export const connectTestDB = async (): Promise<Connection> =>
   connectDB("development", {
-    host: "0.0.0.0",
-    username: "user",
-    password: "pass",
+    host: "127.0.0.1",
+    username: "root",
+    password: "",
     database: "test",
     dropSchema: true,
   });

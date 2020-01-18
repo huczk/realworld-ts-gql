@@ -2,19 +2,26 @@ sudo: required
 
 services:
   - docker
+  - mysql
 
 language: node_js
 node_js:
   - 13
 
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+
 jobs:
   include:
     - state: "Test"
       name: "Integration Test"
-      script:
-        cd server && yarn install --production=false && cd tests && docker-compose up --force-recreate -d && cd ../ &&
+      script: cd server && yarn install --production=false &&
         sh tests/wait-for-sql.sh &&
         yarn test
+      # script:
+      #   cd server && yarn install --production=false && cd tests && docker-compose up --force-recreate -d && cd ../ &&
+      #   sh tests/wait-for-sql.sh &&
+      #   yarn test
       node_js: 13
 
 script:
