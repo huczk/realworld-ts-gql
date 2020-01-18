@@ -1,7 +1,7 @@
 import { Connection } from "typeorm";
 
 import { connectDB } from "../connectDB";
-import { gCall } from "../test-utils/gCall";
+import { gCall } from "../../tests/gCall";
 
 import { Profile } from "../entity";
 
@@ -13,7 +13,7 @@ beforeAll(async () => {
     host: "127.0.0.1",
     username: "realworld",
     password: "realworld",
-    database: "realworld",
+    database: "test",
   });
 });
 

@@ -3,7 +3,7 @@ import { ExecutionResult, GraphQLSchema, graphql } from "graphql";
 import Maybe from "graphql/tsutils/Maybe";
 
 import { buildSchema } from "type-graphql";
-import { Resolvers } from "../resolvers";
+import { Resolvers } from "../src/resolvers";
 
 (async (): Promise<GraphQLSchema> =>
   await buildSchema({

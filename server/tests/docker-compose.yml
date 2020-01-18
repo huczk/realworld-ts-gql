@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  db:
+    image: "mysql:8"
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=realworld
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=realworld
+      - MYSQL_PASSWORD=realworld
