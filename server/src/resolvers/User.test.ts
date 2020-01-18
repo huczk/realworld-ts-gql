@@ -10,9 +10,9 @@ beforeAll(async () => {
   conn = await connectTestDB();
 });
 
-afterAll(async () => {
-  await conn?.close();
-});
+// afterAll(async () => {
+//   await conn?.close();
+// });
 
 const registerMutation = `
 mutation register($input: RegisterInput!) {

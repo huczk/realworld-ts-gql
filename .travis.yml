@@ -7,6 +7,8 @@ language: node_js
 node_js:
   - 13
 
+cache: yarn
+
 jobs:
   include:
     - state: "Test"
