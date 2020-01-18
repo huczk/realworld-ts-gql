@@ -10,7 +10,7 @@ services:
       - "3306"
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=realworld
       - MYSQL_DATABASE=test
-      - MYSQL_USER=realworld
-      - MYSQL_PASSWORD=realworld
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root

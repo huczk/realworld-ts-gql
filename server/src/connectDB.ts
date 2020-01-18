@@ -1,14 +1,7 @@
 import { Connection, createConnection, getConnectionOptions } from "typeorm";
 
-export const connectDB = async (
-  type?: "development" | "production",
-  override: any = {},
-): Promise<Connection> =>
+export const connectDB = async (): Promise<Connection> =>
   createConnection({
-    ...(await getConnectionOptions(
-      type || process.env.NODE_ENV || "development",
-    )),
-    ...override,
-
+    ...(await getConnectionOptions(process.env.NODE_ENV || "development")),
     name: "default",
   });
