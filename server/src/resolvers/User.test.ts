@@ -33,6 +33,8 @@ describe("Register", () => {
       username: "User",
     };
 
+    console.log({ conn });
+
     const response = await gCall({
       source: registerMutation,
       variableValues: {
