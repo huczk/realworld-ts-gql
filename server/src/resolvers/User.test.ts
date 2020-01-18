@@ -7,11 +7,7 @@ import { Profile } from "../entity";
 let conn: Connection;
 
 beforeAll(async () => {
-  try {
-    conn = await connectTestDB();
-  } catch (e) {
-    console.log({ e });
-  }
+  conn = await connectTestDB();
 });
 
 afterAll(async () => {
@@ -35,16 +31,12 @@ describe("Register", () => {
       username: "User",
     };
 
-    console.log({ conn });
-
     const response = await gCall({
       source: registerMutation,
       variableValues: {
         input: fakeUser,
       },
     });
-
-    console.log(response);
 
     expect(response).toMatchObject({
       data: {

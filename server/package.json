@@ -9,6 +9,7 @@
     "start": "node dist/index.js",
     "prettier": "prettier --write \"src/**/*.{ts,js,json}\"",
     "test": "jest",
+    "test:local": "cd tests && docker-compose up --force-recreate -d && cd ../ && sh tests/wait-for-sql.sh && yarn test",
     "schema": "ts-node src/buildSchema.ts"
   },
   "husky": {
