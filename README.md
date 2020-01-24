@@ -32,8 +32,6 @@ Tests
 
 # Getting started
 
-- Install [node](https://nodejs.org/en/) and [yarn](https://nodejs.org/en/).
-- go to server folder and run `yarn`
 - Install [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/)
 - In folder root run `docker-compose up`
-- Go to url logged in console
+- Go to url logged in terminal

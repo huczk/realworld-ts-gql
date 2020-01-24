@@ -176,11 +176,13 @@ export class ArticleResolver {
 
     if (!favorite) {
       await Favorite.delete(data);
+      article.favoritesCount--;
     } else {
       const alreadyFavorite = await Favorite.findOne(data);
 
       if (!alreadyFavorite) {
         await Favorite.create(data).save();
+        article.favoritesCount++;
       }
     }
 
