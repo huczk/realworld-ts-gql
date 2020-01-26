@@ -99,10 +99,10 @@ class ArticlesResponse {
   @Field(() => [Article], { nullable: "items" })
   articles: Article[];
 
-  @Field()
+  @Field(() => Int)
   totalItems: number;
 
-  @Field()
+  @Field(() => Int)
   totalPages: number;
 }
 

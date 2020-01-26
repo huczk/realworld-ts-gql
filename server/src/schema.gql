@@ -19,8 +19,8 @@ type Article {
 
 type ArticlesResponse {
   articles: [Article]!
-  totalItems: Float!
-  totalPages: Float!
+  totalItems: Int!
+  totalPages: Int!
 }
 
 type Comment {
