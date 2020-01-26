@@ -17,6 +17,12 @@ type Article {
   favorited: Boolean!
 }
 
+type ArticlesResponse {
+  articles: [Article]!
+  totalItems: Float!
+  totalPages: Float!
+}
+
 type Comment {
   id: ID!
   createdAt: DateTime!
@@ -60,8 +66,8 @@ type Query {
   profile(username: String!): Profile
   user: User
   article(slug: String!): Article
-  articles(limit: Int = 20, offset: Int = 0, author: String, favorited: String, tag: String): [Article]!
-  feed(limit: Int = 20, offset: Int = 0): [Article]!
+  articles(limit: Int = 20, offset: Int = 0, author: String, favorited: String, tag: String): ArticlesResponse!
+  feed(limit: Int = 20, offset: Int = 0): ArticlesResponse!
   tags: [String]!
   comments(slug: String!): [Comment]!
 }

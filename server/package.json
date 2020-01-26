@@ -10,7 +10,8 @@
     "prettier": "prettier --write \"src/**/*.{ts,js,json}\"",
     "test": "jest",
     "test:local": "cd tests && docker-compose up --force-recreate -d && cd ../ && sh tests/wait-for-sql.sh && yarn test",
-    "schema": "ts-node src/buildSchema.ts"
+    "schema": "docker-compose exec -T web yarn schema:build",
+    "schema:build": "ts-node src/buildSchema.ts"
   },
   "husky": {
     "hooks": {

@@ -8,12 +8,13 @@ import {
   Info,
   Int,
   Mutation,
+  ObjectType,
   Query,
   Resolver,
   Root,
   UseMiddleware,
 } from "type-graphql";
-import { getRepository } from "typeorm";
+import { SelectQueryBuilder, getRepository } from "typeorm";
 import { fieldsList } from "graphql-fields-list";
 import { IGraphQLToolsResolveInfo } from "apollo-server-express";
 
@@ -28,6 +29,19 @@ type TArticleRelationTuple = [TArticleRelationFields, "author"];
 const getArticleRelations = getRelations<TArticleRelationTuple>([
   ["author", "author"],
 ]);
+
+const getPaginatedArticles = async (
+  query: SelectQueryBuilder<Article>,
+  limit: number,
+): Promise<ArticlesResponse> => {
+  const [articles, totalItems] = await query.getManyAndCount();
+
+  return {
+    articles,
+    totalItems,
+    totalPages: Math.ceil(totalItems / limit),
+  };
+};
 
 @ArgsType()
 class AddArticle {
@@ -80,6 +94,18 @@ class ArticlesArgs extends PageArgs {
   tag?: string;
 }
 
+@ObjectType()
+class ArticlesResponse {
+  @Field(() => [Article], { nullable: "items" })
+  articles: Article[];
+
+  @Field()
+  totalItems: number;
+
+  @Field()
+  totalPages: number;
+}
+
 @Resolver(() => Article)
 export class ArticleResolver {
   @UseMiddleware(isAuth)
@@ -114,11 +140,11 @@ export class ArticleResolver {
     });
   }
 
-  @Query(() => [Article], { nullable: "items" })
+  @Query(() => ArticlesResponse)
   async articles(
     @Args() { offset, limit, favorited, author, tag }: ArticlesArgs,
     @Info() info: IGraphQLToolsResolveInfo,
-  ): Promise<Article[]> {
+  ): Promise<ArticlesResponse> {
     const query = getRepository(Article)
       .createQueryBuilder("article")
       .orderBy("article.createdAt", "DESC")
@@ -149,7 +175,7 @@ export class ArticleResolver {
       query.leftJoinAndSelect("article.author", "author");
     }
 
-    return query.getMany();
+    return getPaginatedArticles(query, limit);
   }
 
   @UseMiddleware(isAuth)
@@ -253,12 +279,12 @@ export class ArticleResolver {
   }
 
   @UseMiddleware(isAuth)
-  @Query(() => [Article], { nullable: "items" })
+  @Query(() => ArticlesResponse)
   async feed(
     @Args() { offset, limit }: PageArgs,
     @Ctx() { user }: IContext,
     @Info() info: IGraphQLToolsResolveInfo,
-  ): Promise<Article[]> {
+  ): Promise<ArticlesResponse> {
     const query = getRepository(Article)
       .createQueryBuilder("article")
       .where(
@@ -278,7 +304,7 @@ export class ArticleResolver {
       query.innerJoinAndSelect("article.author", "author");
     }
 
-    return query.getMany();
+    return getPaginatedArticles(query, limit);
   }
 
   @Query(() => [String], { nullable: "items" })
