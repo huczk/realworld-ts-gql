@@ -50,7 +50,7 @@ type Mutation {
   updateArticle(slug: String!, title: String, description: String, body: String): Article
   deleteArticle(slug: String!): ResponseStatus!
   addComment(body: String!, slug: String!): Comment
-  deleteComment(id: Float!): ResponseStatus!
+  deleteComment(id: String!): ResponseStatus!
 }
 
 type Profile {

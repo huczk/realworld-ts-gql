@@ -2,6 +2,7 @@ import {
   Arg,
   Ctx,
   Info,
+  Int,
   Mutation,
   Query,
   Resolver,
@@ -66,7 +67,7 @@ export class CommentResolver {
 
   @UseMiddleware(isAuth)
   @Mutation(() => ResponseStatus)
-  async deleteComment(@Arg("id") id: number): Promise<ResponseStatus> {
+  async deleteComment(@Arg("id") id: string): Promise<ResponseStatus> {
     try {
       await Comment.delete(id);
       return { success: true };
