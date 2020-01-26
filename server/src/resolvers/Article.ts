@@ -18,7 +18,7 @@ import { SelectQueryBuilder, getRepository } from "typeorm";
 import { fieldsList } from "graphql-fields-list";
 import { IGraphQLToolsResolveInfo } from "apollo-server-express";
 
-import { ResponseStatus, getRelations, isFieldRequested } from "./shared";
+import { ResponseStatus, getRelations } from "./shared";
 import { Article, Favorite, Follower } from "../entity";
 import { isAuth } from "../middleware/isAuth";
 import { IContext } from "../types";
@@ -143,7 +143,6 @@ export class ArticleResolver {
   @Query(() => ArticlesResponse)
   async articles(
     @Args() { offset, limit, favorited, author, tag }: ArticlesArgs,
-    @Info() info: IGraphQLToolsResolveInfo,
   ): Promise<ArticlesResponse> {
     const query = getRepository(Article)
       .createQueryBuilder("article")
@@ -171,7 +170,7 @@ export class ArticleResolver {
         "author.username = :author",
         { author },
       );
-    } else if (isFieldRequested("author", info)) {
+    } else {
       query.leftJoinAndSelect("article.author", "author");
     }
 
@@ -283,7 +282,6 @@ export class ArticleResolver {
   async feed(
     @Args() { offset, limit }: PageArgs,
     @Ctx() { user }: IContext,
-    @Info() info: IGraphQLToolsResolveInfo,
   ): Promise<ArticlesResponse> {
     const query = getRepository(Article)
       .createQueryBuilder("article")
@@ -296,13 +294,10 @@ export class ArticleResolver {
             .where("follower.followerId = :id", { id: user!.id })
             .getQuery()}`,
       )
+      .innerJoinAndSelect("article.author", "author")
       .offset(offset)
       .limit(limit)
       .orderBy("article.createdAt", "DESC");
-
-    if (isFieldRequested("author", info)) {
-      query.innerJoinAndSelect("article.author", "author");
-    }
 
     return getPaginatedArticles(query, limit);
   }
